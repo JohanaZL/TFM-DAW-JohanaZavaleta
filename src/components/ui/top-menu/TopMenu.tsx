@@ -25,7 +25,7 @@ export const TopMenu = () => {
             <div className="hidden md:flex">
                 <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/men">Hombres</Link>
                 <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/women">Mujeres</Link>
-                <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/kids">Niños</Link>
+                <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/kid">Niños</Link>
             </div>
 
             {/* SEARCH, CART, MENU */}
