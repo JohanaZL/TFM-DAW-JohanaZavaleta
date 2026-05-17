@@ -1,4 +1,4 @@
-export default function () {
+export default function OrdersIdPage () {
   return (
     <div>
       <h1>Order #abc</h1>

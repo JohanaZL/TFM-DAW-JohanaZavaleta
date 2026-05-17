@@ -1,4 +1,4 @@
-export default function () {
+export default function CheckoutAddressPage () {
   return (
     <div>
       <h1>Address Page</h1>
