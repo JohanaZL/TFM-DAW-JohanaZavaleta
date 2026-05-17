@@ -1,4 +1,4 @@
-export default function () {
+export default function IARecomendationPage () {
   return (
     <div>
       <h1>Recomendation Page</h1>
