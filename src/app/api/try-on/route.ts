@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
+
 export async function POST(req: NextRequest) {
   const apiKey = process.env.GOOGLE_GEMINI_API_KEY;
   if (!apiKey) {
@@ -13,6 +14,8 @@ export async function POST(req: NextRequest) {
   let productImage: string;
   let userMimeType: string;
 
+
+  
   try {
     const body = await req.json();
     userImage = body.userImage;
@@ -58,7 +61,6 @@ export async function POST(req: NextRequest) {
           ],
         },
       ],
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       generationConfig: { responseModalities: ["IMAGE", "TEXT"] } as any,
     });
 

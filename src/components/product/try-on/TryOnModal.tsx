@@ -142,7 +142,7 @@ export const TryOnModal = ({ isOpen, onClose, productImage, productTitle }: Prop
         {userImage && !resultImage && (
           <div className="flex flex-col items-center gap-4">
             <p className="text-sm text-gray-500">Tu foto:</p>
-            <img
+            <Image
               src={`data:${userMimeType};base64,${userImage}`}
               alt="Tu foto"
               className="max-h-56 rounded-lg object-contain border"
