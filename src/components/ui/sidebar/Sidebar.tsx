@@ -78,9 +78,6 @@ export const Sidebar = () => {
                     <IoLogOutOutline size={30} />
                     <span className='ml-3 text-xl'>Salir</span>
                 </Link>
-                <Link href='/ia-recomendation' className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'>
-                    <span className='ml-3 text-xl'>Recomendaciones con IA</span>
-                </Link>
                 
 
                 {/* Line Separator */}
