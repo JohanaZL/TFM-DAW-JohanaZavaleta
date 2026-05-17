@@ -1,8 +1,8 @@
 import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector } from "@/components";
+import { TryOnButton } from "@/components/product/try-on/TryOnButton";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
-import { availableMemory } from "process";
 
 interface Props {
   params: {
@@ -58,6 +58,12 @@ export default function ProductSlugPage ({params}: Props) {
 
         {/* Button */}
         <button className="btn-primary my-5"> Agregar al carrito </button>
+
+        {/* Probador Virtual */}
+        <TryOnButton
+          productImage={ product.images[0] }
+          productTitle={ product.title }
+        />
 
         {/* Descripción */}
         <h3 className="font-bold text-sm"> Descripción </h3>
