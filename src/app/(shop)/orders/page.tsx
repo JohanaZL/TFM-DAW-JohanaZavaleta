@@ -1,75 +1,74 @@
 import { Title } from '@/components/ui/title/Title';
-import { IoCardOutline } from 'react-icons/io5';
+import { getSession } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
+import { redirect } from 'next/navigation';
 import Link from 'next/link';
+import { IoCheckmarkCircleOutline, IoCloseCircleOutline, IoTimeOutline } from 'react-icons/io5';
 
-export default function OrdersPage() {
+export default async function OrdersPage() {
+  const session = await getSession();
+  if (!session) redirect('/auth/login?redirect=/orders');
+
+  const orders = await prisma.order.findMany({
+    where: { userId: session.id },
+    orderBy: { createdAt: 'desc' },
+  });
+
   return (
     <>
-      <Title title="Orders" />
+      <Title title="Mis Pedidos" />
 
-      <div className="mb-10">
-        <table className="min-w-full">
-          <thead className="bg-gray-200 border-b">
-            <tr>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                #ID
-              </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Nombre completo
-              </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Estado
-              </th>
-              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Opciones
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                <IoCardOutline className="text-green-800" />
-                <span className='mx-2 text-green-800'>Pagada</span>
-
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  Ver orden
-                </Link>
-              </td>
-
-            </tr>
-
-            <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
-
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                Mark
-              </td>
-              <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-
-                <IoCardOutline className="text-red-800" />
-                <span className='mx-2 text-red-800'>No Pagada</span>
-
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 ">
-                <Link href="/orders/123" className="hover:underline">
-                  Ver orden
-                </Link>
-              </td>
-
-            </tr>
-
-          </tbody>
-        </table>
-      </div>
+      {orders.length === 0 ? (
+        <div className="text-center py-20 text-gray-500">
+          <p>No tienes pedidos todavía.</p>
+          <Link href="/" className="btn-primary mt-4 inline-block">Explorar productos</Link>
+        </div>
+      ) : (
+        <div className="mb-10 overflow-x-auto">
+          <table className="min-w-full">
+            <thead className="bg-gray-200 border-b">
+              <tr>
+                <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Ticket</th>
+                <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Fecha</th>
+                <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Total</th>
+                <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Estado</th>
+                <th className="text-sm font-medium text-gray-900 px-6 py-4 text-left">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map(order => (
+                <tr key={order.id} className="bg-white border-b transition hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm font-mono">{order.ticketNumber}</td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    {new Date(order.createdAt).toLocaleDateString('es-ES')}
+                  </td>
+                  <td className="px-6 py-4 text-sm font-semibold">€{order.total.toFixed(2)}</td>
+                  <td className="px-6 py-4">
+                    {order.status === 'cancelled' ? (
+                      <span className="flex items-center gap-1 text-red-600 text-sm">
+                        <IoCloseCircleOutline /> Cancelado
+                      </span>
+                    ) : order.status === 'delivered' ? (
+                      <span className="flex items-center gap-1 text-green-700 text-sm">
+                        <IoCheckmarkCircleOutline /> Entregado
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-1 text-yellow-600 text-sm">
+                        <IoTimeOutline /> {order.status === 'pending' ? 'Confirmado' : order.status}
+                      </span>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 text-sm">
+                    <Link href={`/orders/${order.id}`} className="hover:underline text-blue-600">
+                      Ver detalles
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </>
   );
 }

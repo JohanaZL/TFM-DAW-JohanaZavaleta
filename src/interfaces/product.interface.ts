@@ -1,17 +1,43 @@
-export interface Product {
-    //id: string;
-    description: string;
-    images: string[];
-    inStock: number;
-    price: number;
-    sizes: Size[];
-    slug: string;
-    tags: string[];
-    title: string;
-    type: Type;
-    gender: Category;
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
 }
 
-export type Category = 'men'|'women'|'kid'|'unisex';
-export type Size = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
-export type Type = 'shirts'|'pants'|'hoodies'|'hats';
+export interface ProductImage {
+  id: number;
+  mimeType: string;
+  fileName: string;
+  isMain: boolean;
+  productId: string;
+}
+
+export interface Product {
+  id: string;
+  title: string;
+  description: string;
+  inStock: number;
+  price: number;
+  slug: string;
+  tags: string[];
+  material?: string;
+  dimensions?: string;
+  weight?: number;
+  color?: string;
+  categoryId: string;
+  category?: Category;
+  images?: ProductImage[];
+}
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+}
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'admin' | 'user';
+}

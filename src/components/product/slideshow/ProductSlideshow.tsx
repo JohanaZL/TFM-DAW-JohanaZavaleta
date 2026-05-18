@@ -3,60 +3,53 @@
 import { useState } from 'react';
 import { Swiper as SwiperObject } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, FreeMode, Navigation,Thumbs } from 'swiper/modules';
-
-// Import Swiper styles
+import { Autoplay, FreeMode, Navigation, Thumbs } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-
 import './slideshow.css';
 import Image from 'next/image';
 
-
 interface Props {
-  images: string[];
+  imageIds: number[];
   title: string;
   className?: string;
 }
 
-export const ProductSlideshow = ({ images, title, className }: Props) => {
-
+export const ProductSlideshow = ({ imageIds, title, className }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperObject>();
 
+  if (imageIds.length === 0) {
+    return (
+      <div className={`${className} bg-gray-100 rounded-lg flex items-center justify-center h-96`}>
+        <span className="text-gray-400">Sin imagen</span>
+      </div>
+    );
+  }
+
   return (
-    <div className={ className }>
-      
+    <div className={className}>
       <Swiper
-        style={{
-            '--swiper-navigation-color': '#fff',
-            '--swiper-pagination-color': '#fff',
-          } as React.CSSProperties
-        }
+        style={{ '--swiper-navigation-color': '#fff', '--swiper-pagination-color': '#fff' } as React.CSSProperties}
         spaceBetween={10}
         navigation={true}
-        autoplay={ { delay: 2500 } }
+        autoplay={{ delay: 3000 }}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs, Autoplay]}
         className="mySwiper2"
       >
-
-        {
-          images.map( image => (
-            <SwiperSlide key={ image }>
-              <Image 
-                width={ 1024 }
-                height={ 800 }
-                src={ `/products/${ image }` }
-                alt={ title }
-                className='rounded-lg object-fill'
-              />
-            </SwiperSlide>
-          ) )
-          
-        }
-        
+        {imageIds.map(id => (
+          <SwiperSlide key={id}>
+            <Image
+              width={1024}
+              height={800}
+              src={`/api/images/${id}`}
+              alt={title}
+              className="rounded-lg object-fill"
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
 
       <Swiper
@@ -68,25 +61,18 @@ export const ProductSlideshow = ({ images, title, className }: Props) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        
-        {
-          images.map( image => (
-            <SwiperSlide key={ image }>
-              <Image 
-                width={ 300 }
-                height={ 300 }
-                src={ `/products/${ image }` }
-                alt={ title }
-                className='rounded-lg object-fill'
-              />
-            </SwiperSlide>
-          ) )
-          
-        }
-
+        {imageIds.map(id => (
+          <SwiperSlide key={id}>
+            <Image
+              width={300}
+              height={300}
+              src={`/api/images/${id}`}
+              alt={title}
+              className="rounded-lg object-fill"
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
-
     </div>
-     
-  )
-}
+  );
+};

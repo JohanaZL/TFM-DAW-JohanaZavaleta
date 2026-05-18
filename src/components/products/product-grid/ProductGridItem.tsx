@@ -1,42 +1,48 @@
 'use client';
 
-import { Product } from "@/interfaces"
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { Product } from '@/interfaces';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
 
-interface Props { 
-    product: Product;
+interface Props {
+  product: Product;
 }
 
-export const ProductGridItem = ( { product }: Props ) => {
+function getImageSrc(product: Product, index: number): string {
+  const images = product.images ?? [];
+  if (images.length === 0) return '/placeholder-furniture.jpg';
+  const img = images[index] ?? images[0];
+  return `/api/images/${img.id}`;
+}
 
-    const [displayImage, setDisplayImage] = useState( product.images[0] );
+export const ProductGridItem = ({ product }: Props) => {
+  const hasSecondImage = (product.images?.length ?? 0) > 1;
+  const [showSecond, setShowSecond] = useState(false);
 
   return (
     <div className="rounded-md overflow-hidden fade-in">
-        <Link href={`/product/${ product.slug }`}>
-            <Image 
-                src={`/products/${ displayImage }`}
-                alt={ product.title }
-                className="w-full object-cover rounded"
-                width={ 500 }
-                height={ 500 }
-                onMouseEnter={ () => setDisplayImage( product.images[1] ) }
-                onMouseLeave={ () =>setDisplayImage( product.images[0] ) }
-            />
-        </Link>
-        
-        <div className="p-4 flex flex-col">
-            <Link
-                className="hover:text-blue-600"
-                href={`/product/${ product.slug }`}>
-                    { product.title }
-            </Link>
-            <span className="font-bold">${ product.price }</span>
-        </div>
+      <Link href={`/product/${product.slug}`}>
+        <Image
+          src={showSecond && hasSecondImage ? getImageSrc(product, 1) : getImageSrc(product, 0)}
+          alt={product.title}
+          className="w-full object-cover rounded"
+          width={500}
+          height={500}
+          onMouseEnter={() => hasSecondImage && setShowSecond(true)}
+          onMouseLeave={() => setShowSecond(false)}
+        />
+      </Link>
 
+      <div className="p-4 flex flex-col">
+        <Link className="hover:text-blue-600" href={`/product/${product.slug}`}>
+          {product.title}
+        </Link>
+        {product.material && (
+          <span className="text-xs text-gray-500">{product.material}</span>
+        )}
+        <span className="font-bold">€{product.price.toFixed(2)}</span>
+      </div>
     </div>
-  )
-}
- 
+  );
+};
