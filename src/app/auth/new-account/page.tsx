@@ -1,52 +1,114 @@
+'use client';
+
 import { titleFont } from '@/config/fonts';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { FormEvent, Suspense, useState } from 'react';
+import { useAuthStore } from '@/store';
 
-export default function NewAccountPage() {
+function NewAccountForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') ?? '/';
+  const setUser = useAuthStore(s => s.setUser);
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? 'Error al crear la cuenta');
+        return;
+      }
+      setUser(data.user);
+      router.push(redirect);
+    } catch {
+      setError('Error de red. Inténtalo de nuevo.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen pt-32 sm:pt-52">
-
       <h1 className={`${titleFont.className} text-4xl mb-5`}>Nueva Cuenta</h1>
 
-      <div className="flex flex-col">
+      <form onSubmit={handleSubmit} className="flex flex-col">
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            {error}
+          </div>
+        )}
 
-        <label htmlFor="email">Nombre Completo</label>
+        <label htmlFor="name">Nombre completo</label>
         <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="text" />
-        
+          id="name"
+          className="px-5 py-2 border bg-gray-200 rounded mb-1"
+          type="text"
+          value={name}
+          onChange={e => setName(e.target.value)}
+          required
+        />
+        <p className="text-xs text-gray-500 mb-4">Solo letras, números y espacios</p>
 
         <label htmlFor="email">Correo electrónico</label>
         <input
+          id="email"
           className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="email" />
+          type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          required
+        />
 
-
-        <label htmlFor="email">Contraseña</label>
+        <label htmlFor="password">Contraseña</label>
         <input
-          className="px-5 py-2 border bg-gray-200 rounded mb-5"
-          type="email" />
+          id="password"
+          className="px-5 py-2 border bg-gray-200 rounded mb-1"
+          type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          required
+        />
+        <p className="text-xs text-gray-500 mb-5">
+          Mínimo 6 caracteres, con mayúscula, minúscula y un número
+        </p>
 
-        <button
-
-          className="btn-primary">
-          Crear Cuenta
+        <button type="submit" disabled={loading} className="btn-primary disabled:opacity-60">
+          {loading ? 'Creando cuenta...' : 'Crear Cuenta'}
         </button>
 
-
-        {/* divisor l ine */}
         <div className="flex items-center my-5">
           <div className="flex-1 border-t border-gray-500"></div>
           <div className="px-2 text-gray-800">O</div>
           <div className="flex-1 border-t border-gray-500"></div>
         </div>
 
-        <Link
-          href="/auth/login"
-          className="btn-secondary text-center">
+        <Link href="/auth/login" className="btn-secondary text-center">
           Ingresar
         </Link>
-
-      </div>
+      </form>
     </div>
+  );
+}
+
+export default function NewAccountPage() {
+  return (
+    <Suspense>
+      <NewAccountForm />
+    </Suspense>
   );
 }
