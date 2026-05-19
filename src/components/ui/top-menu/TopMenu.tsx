@@ -17,7 +17,7 @@ export const TopMenu = () => {
     fetchSession();
   }, [fetchSession]);
 
-  const cartCount = mounted ? cartItems.reduce((sum, i) => sum + i.quantity, 0) : 0;
+  const cartCount = mounted ? cartItems.length : 0;
 
   return (
     <nav className="sticky top-0 z-50 bg-white flex px-5 justify-between items-center w-full h-16 shadow-sm">

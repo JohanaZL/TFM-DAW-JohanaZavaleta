@@ -2,6 +2,7 @@ import { Title } from '@/components/ui/title/Title';
 import { ProductGrid } from '@/components';
 import { Product } from '@/interfaces';
 import Link from 'next/link';
+import { getBaseUrl } from '@/lib/getBaseUrl';
 
 interface Props {
   searchParams: Promise<{ q?: string; category?: string; page?: string }>;
@@ -15,7 +16,7 @@ async function getProducts(q: string, category: string, page: string) {
 
   try {
     const res = await fetch(
-      `${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'http://localhost:3000'}/api/products?${params}`,
+      `${getBaseUrl()}/api/products?${params}`,
       { cache: 'no-store' }
     );
     if (!res.ok) return { products: [], total: 0, pages: 1 };

@@ -68,20 +68,54 @@ export const Sidebar = () => {
         </div>
 
         {user ? (
-          <>
-            <Link onClick={closeMenu} href='/orders' className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'>
-              <IoPersonOutline size={30} />
-              <span className='ml-3 text-xl'>{user.name}</span>
-            </Link>
-            <Link onClick={closeMenu} href='/orders' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-              <IoTicketOutline size={30} />
-              <span className='ml-3 text-xl'>Mis Pedidos</span>
-            </Link>
-            <button onClick={handleLogout} className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all w-full'>
-              <IoLogOutOutline size={30} />
-              <span className='ml-3 text-xl'>Cerrar Sesión</span>
-            </button>
-          </>
+          user.role === 'admin' ? (
+            <>
+              <div className='mt-10 mb-2 text-xs uppercase text-gray-400 font-semibold px-2'>
+                Administración
+              </div>
+              <Link onClick={closeMenu} href='/backoffice' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoSettingsOutline size={30} />
+                <span className='ml-3 text-xl'>Backoffice</span>
+              </Link>
+              <Link onClick={closeMenu} href='/backoffice/products' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoPeopleOutline size={30} />
+                <span className='ml-3 text-xl'>Gestión de Productos</span>
+              </Link>
+              <Link onClick={closeMenu} href='/backoffice/orders' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoTicketOutline size={30} />
+                <span className='ml-3 text-xl'>Gestión de Pedidos</span>
+              </Link>
+              <div className='w-full h-px bg-gray-200 my-5' />
+              <button onClick={handleLogout} className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all w-full'>
+                <IoLogOutOutline size={30} />
+                <span className='ml-3 text-xl'>Cerrar Sesión</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <Link onClick={closeMenu} href='/orders' className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoPersonOutline size={30} />
+                <span className='ml-3 text-xl'>{user.name}</span>
+              </Link>
+              <Link onClick={closeMenu} href='/orders' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoTicketOutline size={30} />
+                <span className='ml-3 text-xl'>Mis Pedidos</span>
+              </Link>
+              <button onClick={handleLogout} className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all w-full'>
+                <IoLogOutOutline size={30} />
+                <span className='ml-3 text-xl'>Cerrar Sesión</span>
+              </button>
+              <div className='w-full h-px bg-gray-200 my-10' />
+              <Link onClick={closeMenu} href='/' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoHomeOutline size={30} />
+                <span className='ml-3 text-xl'>Inicio</span>
+              </Link>
+              <Link onClick={closeMenu} href='/products' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoSearchOutline size={30} />
+                <span className='ml-3 text-xl'>Todos los productos</span>
+              </Link>
+            </>
+          )
         ) : (
           <>
             <Link onClick={closeMenu} href='/auth/login' className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'>
@@ -91,36 +125,6 @@ export const Sidebar = () => {
             <Link onClick={closeMenu} href='/auth/new-account' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
               <IoPersonOutline size={30} />
               <span className='ml-3 text-xl'>Crear Cuenta</span>
-            </Link>
-          </>
-        )}
-
-        <div className='w-full h-px bg-gray-200 my-10' />
-
-        <Link onClick={closeMenu} href='/' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-          <IoHomeOutline size={30} />
-          <span className='ml-3 text-xl'>Inicio</span>
-        </Link>
-
-        <Link onClick={closeMenu} href='/products' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-          <IoSearchOutline size={30} />
-          <span className='ml-3 text-xl'>Todos los productos</span>
-        </Link>
-
-        {user?.role === 'admin' && (
-          <>
-            <div className='w-full h-px bg-gray-200 my-5' />
-            <Link onClick={closeMenu} href='/backoffice' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-              <IoSettingsOutline size={30} />
-              <span className='ml-3 text-xl'>Backoffice</span>
-            </Link>
-            <Link onClick={closeMenu} href='/backoffice/products' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-              <IoPeopleOutline size={30} />
-              <span className='ml-3 text-xl'>Gestión de Productos</span>
-            </Link>
-            <Link onClick={closeMenu} href='/backoffice/orders' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-              <IoTicketOutline size={30} />
-              <span className='ml-3 text-xl'>Gestión de Pedidos</span>
             </Link>
           </>
         )}

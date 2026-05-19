@@ -1,6 +1,7 @@
 import { titleFont } from '@/config/fonts';
 import { notFound } from 'next/navigation';
 import { Product } from '@/interfaces';
+import { getBaseUrl } from '@/lib/getBaseUrl';
 import { ProductSlideshow } from '@/components/product/slideshow/ProductSlideshow';
 import { ProductMobileSlideshow } from '@/components/product/slideshow/ProductMobileSlideshow';
 import { AddToCartButton } from '@/components/product/AddToCartButton';
@@ -12,7 +13,7 @@ interface Props {
 
 async function getProduct(slug: string): Promise<Product | null> {
   try {
-    const res = await fetch(`${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'http://localhost:3000'}/api/products/${slug}`, {
+    const res = await fetch(`${getBaseUrl()}/api/products/${slug}`, {
       cache: 'no-store',
     });
     if (!res.ok) return null;

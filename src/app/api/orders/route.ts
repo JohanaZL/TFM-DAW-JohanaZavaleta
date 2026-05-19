@@ -41,26 +41,32 @@ export async function POST(req: NextRequest) {
   const tax = subtotal * 0.21;
   const total = subtotal + tax;
 
-  const order = await prisma.order.create({
-    data: {
-      userId: session.id,
-      address: body.address ?? '',
-      total,
-      items: {
-        create: cart.items.map(item => ({
-          productId: item.productId,
-          quantity: item.quantity,
-          priceAtBuy: item.product.price,
-        })),
+  const [order] = await prisma.$transaction([
+    prisma.order.create({
+      data: {
+        userId: session.id,
+        address: body.address ?? '',
+        total,
+        items: {
+          create: cart.items.map(item => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            priceAtBuy: item.product.price,
+          })),
+        },
       },
-    },
-    include: {
-      items: { include: { product: true } },
-    },
-  });
-
-  // Clear cart
-  await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });
+      include: {
+        items: { include: { product: true } },
+      },
+    }),
+    prisma.cartItem.deleteMany({ where: { cartId: cart.id } }),
+    ...cart.items.map(item =>
+      prisma.product.update({
+        where: { id: item.productId },
+        data: { inStock: { decrement: item.quantity } },
+      })
+    ),
+  ]);
 
   return NextResponse.json(order, { status: 201 });
 }
