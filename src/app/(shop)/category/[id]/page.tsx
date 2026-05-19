@@ -10,14 +10,14 @@ interface Props {
 async function getCategoryProducts(slug: string): Promise<{ products: Product[]; categoryName: string } | null> {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'}/api/products?category=${slug}`,
+      `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/products?category=${slug}`,
       { cache: 'no-store' }
     );
     if (!res.ok) return null;
     const data = await res.json();
 
     const catRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'}/api/categories`,
+      `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/categories`,
       { cache: 'no-store' }
     );
     const categories = catRes.ok ? await catRes.json() : [];
