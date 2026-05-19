@@ -4,7 +4,7 @@ import { Product } from '@/interfaces';
 
 async function getProducts(): Promise<Product[]> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000'}/api/products?page=1`, {
+    const res = await fetch(`${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/products?page=1`, {
       cache: 'no-store',
     });
     if (!res.ok) return [];
