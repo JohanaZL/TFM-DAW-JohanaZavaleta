@@ -2,6 +2,7 @@ import { ProductGrid } from '@/components';
 import { Title } from '@/components/ui/title/Title';
 import { Product } from '@/interfaces';
 import { notFound } from 'next/navigation';
+import { getBaseUrl } from '@/lib/getBaseUrl';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -10,14 +11,14 @@ interface Props {
 async function getCategoryProducts(slug: string): Promise<{ products: Product[]; categoryName: string } | null> {
   try {
     const res = await fetch(
-      `${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'http://localhost:3000'}/api/products?category=${slug}`,
+      `${getBaseUrl()}/api/products?category=${slug}`,
       { cache: 'no-store' }
     );
     if (!res.ok) return null;
     const data = await res.json();
 
     const catRes = await fetch(
-      `${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'http://localhost:3000'}/api/categories`,
+      `${getBaseUrl()}/api/categories`,
       { cache: 'no-store' }
     );
     const categories = catRes.ok ? await catRes.json() : [];

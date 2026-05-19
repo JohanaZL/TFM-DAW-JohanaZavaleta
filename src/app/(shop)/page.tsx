@@ -1,14 +1,13 @@
 import { Title } from '@/components/ui/title/Title';
 import { ProductGrid } from '@/components';
 import { Product } from '@/interfaces';
+import { getBaseUrl } from '@/lib/getBaseUrl';
 
 async function getProducts(): Promise<Product[]> {
   try {
-    const res = await fetch(`${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'http://localhost:3000'}/api/products?page=1`, {
+    const res = await fetch(`${getBaseUrl()}/api/products?page=1`, {
       cache: 'no-store',
     });
-    console.log('VERCEL_PROJECT_PRODUCTION_URL',process.env.VERCEL_PROJECT_PRODUCTION_URL)
-    console.log('RES--',res)
     if (!res.ok) return [];
     const data = await res.json();
     console.log('DATA---',data);
