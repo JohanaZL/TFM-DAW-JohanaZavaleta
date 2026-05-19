@@ -15,7 +15,7 @@ async function getProducts(q: string, category: string, page: string) {
 
   try {
     const res = await fetch(
-      `${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/products?${params}`,
+      `${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'http://localhost:3000'}/api/products?${params}`,
       { cache: 'no-store' }
     );
     if (!res.ok) return { products: [], total: 0, pages: 1 };

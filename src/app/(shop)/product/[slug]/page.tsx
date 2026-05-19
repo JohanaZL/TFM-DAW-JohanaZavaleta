@@ -12,7 +12,7 @@ interface Props {
 
 async function getProduct(slug: string): Promise<Product | null> {
   try {
-    const res = await fetch(`${process.env.VERCEL_URL ?? 'http://localhost:3000'}/api/products/${slug}`, {
+    const res = await fetch(`${process.env.VERCEL_PROJECT_PRODUCTION_URL ?? 'http://localhost:3000'}/api/products/${slug}`, {
       cache: 'no-store',
     });
     if (!res.ok) return null;
