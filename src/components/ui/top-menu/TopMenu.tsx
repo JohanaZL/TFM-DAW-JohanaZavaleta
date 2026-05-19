@@ -8,7 +8,7 @@ import { useUIStore, useCartStore, useAuthStore } from '@/store';
 
 export const TopMenu = () => {
   const openSideMenu = useUIStore(state => state.openSideMenu);
-  const totalItems = useCartStore(state => state.totalItems);
+  const cartItems = useCartStore(state => state.items);
   const { user, fetchSession } = useAuthStore();
   const [mounted, setMounted] = useState(false);
 
@@ -17,10 +17,10 @@ export const TopMenu = () => {
     fetchSession();
   }, [fetchSession]);
 
-  const cartCount = mounted ? totalItems() : 0;
+  const cartCount = mounted ? cartItems.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
   return (
-    <nav className="flex px-5 justify-between items-center w-full h-16">
+    <nav className="sticky top-0 z-50 bg-white flex px-5 justify-between items-center w-full h-16 shadow-sm">
 
       {/* LOGO */}
       <div>

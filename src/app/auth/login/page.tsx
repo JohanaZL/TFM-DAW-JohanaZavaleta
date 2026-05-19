@@ -82,7 +82,10 @@ function LoginForm() {
           <div className="flex-1 border-t border-gray-500"></div>
         </div>
 
-        <Link href="/auth/new-account" className="btn-secondary text-center">
+        <Link
+          href={redirect !== '/' ? `/auth/new-account?redirect=${redirect}` : '/auth/new-account'}
+          className="btn-secondary text-center"
+        >
           Crear una nueva cuenta
         </Link>
       </form>

@@ -2,12 +2,14 @@
 
 import { titleFont } from '@/config/fonts';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { FormEvent, Suspense, useState } from 'react';
 import { useAuthStore } from '@/store';
 
-export default function NewAccountPage() {
+function NewAccountForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect') ?? '/';
   const setUser = useAuthStore(s => s.setUser);
 
   const [name, setName] = useState('');
@@ -32,7 +34,7 @@ export default function NewAccountPage() {
         return;
       }
       setUser(data.user);
-      router.push('/');
+      router.push(redirect);
     } catch {
       setError('Error de red. Inténtalo de nuevo.');
     } finally {
@@ -100,5 +102,13 @@ export default function NewAccountPage() {
         </Link>
       </form>
     </div>
+  );
+}
+
+export default function NewAccountPage() {
+  return (
+    <Suspense>
+      <NewAccountForm />
+    </Suspense>
   );
 }
