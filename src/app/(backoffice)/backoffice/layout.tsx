@@ -11,7 +11,7 @@ export default async function BackofficeLayout({ children }: { children: React.R
   return (
     <div className="flex min-h-screen bg-gray-100">
       <BackofficeNav />
-      <main className="flex-1 p-8 overflow-auto">
+      <main className="flex-1 p-8 pt-16 md:pt-8 overflow-auto">
         {children}
       </main>
     </div>

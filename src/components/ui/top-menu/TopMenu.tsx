@@ -2,15 +2,25 @@
 
 import { titleFont } from '@/config/fonts';
 import { IoSearchOutline, IoCartOutline } from 'react-icons/io5';
+import { NotificationBell } from '@/components/soporte/NotificationBell';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { useUIStore, useCartStore, useAuthStore } from '@/store';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
+
+const navLinks = [
+  { href: '/products', label: 'Productos' },
+  { href: '/contacto', label: 'Contacto' },
+  { href: '/faqs', label: 'FAQs' },
+];
 
 export const TopMenu = () => {
   const openSideMenu = useUIStore(state => state.openSideMenu);
   const cartItems = useCartStore(state => state.items);
   const { user, fetchSession } = useAuthStore();
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -21,8 +31,6 @@ export const TopMenu = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-white shadow-sm">
-
-      {/* Fila principal */}
       <div className="flex px-5 justify-between items-center w-full h-14">
 
         {/* LOGO */}
@@ -33,21 +41,30 @@ export const TopMenu = () => {
           </Link>
         </div>
 
-        {/* OPCIONES DE MENU — solo escritorio */}
-        <div className="hidden md:flex">
-          <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/sofas">Sofás</Link>
-          <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/sillas">Sillas</Link>
-          <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/mesas">Mesas</Link>
-          <Link className="m-2 p-2 rounded-md hover:bg-gray-100" href="/category/camas">Camas</Link>
+        {/* NAV LINKS — solo escritorio */}
+        <div className="hidden md:flex items-center gap-1">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={clsx(
+                'm-2 p-2 rounded-md text-sm font-medium transition-colors',
+                pathname.startsWith(href)
+                  ? 'bg-blue-50 text-blue-700'
+                  : 'hover:bg-gray-100 text-gray-700'
+              )}
+            >
+              {label}
+            </Link>
+          ))}
         </div>
 
-        {/* SEARCH, CART, MENU */}
+        {/* ICONOS: SEARCH, CART, MENU */}
         <div className="flex items-center">
-          <Link href="/products" className="mx-2">
-            <IoSearchOutline className="w-5 h-5" />
-          </Link>
 
-          <Link href="/cart" className="mx-2">
+          <NotificationBell isLoggedIn={!!user && mounted} />
+
+          <Link href="/cart" className="mx-2" aria-label="Carrito de compra">
             <div className="relative">
               {cartCount > 0 && (
                 <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 text-white">
@@ -58,26 +75,18 @@ export const TopMenu = () => {
             </div>
           </Link>
 
-          {user ? (
+          {user && (
             <span className="text-sm mx-2 text-gray-600 hidden md:block">{user.name}</span>
-          ) : null}
+          )}
 
           <button
             onClick={openSideMenu}
-            className="m-2 p-2 rounded-md hover:bg-gray-100">
+            className="m-2 p-2 rounded-md hover:bg-gray-100 text-sm font-medium"
+          >
             Menú
           </button>
         </div>
       </div>
-
-      {/* Barra de categorías — solo móvil */}
-      <div className="flex md:hidden overflow-x-auto px-3 pb-2 gap-1 border-t border-gray-100 scrollbar-hide">
-        <Link className="shrink-0 text-sm px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" href="/category/sofas">Sofás</Link>
-        <Link className="shrink-0 text-sm px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" href="/category/sillas">Sillas</Link>
-        <Link className="shrink-0 text-sm px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" href="/category/mesas">Mesas</Link>
-        <Link className="shrink-0 text-sm px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200" href="/category/camas">Camas</Link>
-      </div>
-
     </nav>
   );
 };

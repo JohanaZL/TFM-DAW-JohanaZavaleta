@@ -12,9 +12,6 @@ export const Footer = () => {
         <span>© { new Date().getFullYear() } </span>
       </Link>
 
-      <Link href='/' className='mx-3'>Privacidad & Legal</Link>
-      <Link href='/' className='mx-3'>Ubicación</Link>
-
     </div>
   )
 }
