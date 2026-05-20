@@ -49,7 +49,8 @@ export async function POST(req: NextRequest) {
     'You are an interior design assistant. Given a photo of a room and a furniture product image, ' +
     'generate a realistic photo showing the furniture naturally placed in that room. ' +
     'Keep the room\'s architecture, lighting, and existing elements exactly as they are. ' +
-    'Place only the furniture piece in a natural, realistic position within the room so the result looks like a real interior photo.';
+    'Place only the furniture piece in a natural, realistic position within the room so the result looks like a real interior photo. ' +
+    'If for any reason you cannot generate the image, explain why in Spanish.';
 
   try {
     const result = await model.generateContent({
@@ -70,7 +71,9 @@ export async function POST(req: NextRequest) {
     const imagePart = parts.find(p => p.inlineData?.data);
 
     if (!imagePart?.inlineData) {
-      return NextResponse.json({ error: 'Gemini no devolvió una imagen. Intenta con otra foto.' }, { status: 502 });
+      const textPart = parts.find(p => p.text);
+      const message = textPart?.text ?? 'No se pudo generar la imagen. Intenta con otra foto de una habitación.';
+      return NextResponse.json({ error: message }, { status: 502 });
     }
 
     return NextResponse.json({
