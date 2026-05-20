@@ -39,7 +39,7 @@ export const SiteConfigForm = ({ initialParagraph }: Props) => {
           value={paragraph}
           onChange={e => setParagraph(e.target.value)}
           placeholder="Escribe aquí el texto que quieres mostrar en la home..."
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
         />
       </div>
 

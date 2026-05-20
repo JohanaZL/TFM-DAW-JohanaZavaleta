@@ -12,7 +12,7 @@ const labels: Record<Props['status'], string> = {
 
 const styles: Record<Props['status'], string> = {
   PENDING: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-  IN_REVIEW: 'bg-blue-100 text-blue-700 border-blue-200',
+  IN_REVIEW: 'bg-primary-muted text-primary border-primary-light',
   RESOLVED: 'bg-green-100 text-green-700 border-green-200',
 };
 

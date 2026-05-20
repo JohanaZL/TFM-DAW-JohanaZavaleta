@@ -49,7 +49,7 @@ export default async function BackofficeSoportePage({ searchParams }: Props) {
           <span className="px-2 py-1 rounded bg-yellow-100 text-yellow-700 font-medium">
             Pendientes: {countMap['PENDING'] ?? 0}
           </span>
-          <span className="px-2 py-1 rounded bg-blue-100 text-blue-700 font-medium">
+          <span className="px-2 py-1 rounded bg-primary-light text-primary font-medium">
             En revisión: {countMap['IN_REVIEW'] ?? 0}
           </span>
         </div>
@@ -101,7 +101,7 @@ export default async function BackofficeSoportePage({ searchParams }: Props) {
                   <td className="px-4 py-3">
                     <Link
                       href={`/backoffice/soporte/${ticket.id}`}
-                      className="text-blue-600 hover:text-blue-800 font-medium"
+                      className="text-primary hover:text-primary-dark font-medium"
                     >
                       Ver
                     </Link>

@@ -97,17 +97,17 @@ export const TicketChat = ({ ticketId, initialMessages, currentRole, isClosed }:
                 className={clsx(
                   'max-w-[75%] rounded-2xl px-4 py-2.5 text-sm',
                   isOwn
-                    ? 'bg-blue-600 text-white rounded-br-sm'
+                    ? 'bg-primary text-white rounded-br-sm'
                     : 'bg-gray-100 text-gray-800 rounded-bl-sm'
                 )}
               >
                 {!isOwn && (
-                  <p className="text-xs font-semibold mb-1 text-blue-700">
+                  <p className="text-xs font-semibold mb-1 text-primary">
                     {msg.senderType === 'ADMIN' ? 'Soporte Teslo' : 'Tú'}
                   </p>
                 )}
                 <p className="whitespace-pre-wrap break-words">{msg.messageText}</p>
-                <p className={clsx('text-xs mt-1', isOwn ? 'text-blue-200' : 'text-gray-400')}>
+                <p className={clsx('text-xs mt-1', isOwn ? 'text-primary-light' : 'text-gray-400')}>
                   {new Date(msg.createdAt).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
                 </p>
               </div>
@@ -130,12 +130,12 @@ export const TicketChat = ({ ticketId, initialMessages, currentRole, isClosed }:
             onKeyDown={handleKeyDown}
             rows={2}
             placeholder="Escribe tu mensaje... (Enter para enviar)"
-            className="flex-1 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="flex-1 border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
           />
           <button
             onClick={handleSend}
             disabled={sending || !text.trim()}
-            className="bg-blue-600 hover:bg-blue-700 text-white p-2.5 rounded-xl transition-colors disabled:opacity-40 shrink-0"
+            className="bg-primary hover:bg-primary-medium text-white p-2.5 rounded-xl transition-colors disabled:opacity-40 shrink-0"
             aria-label="Enviar"
           >
             <IoSendOutline size={18} />

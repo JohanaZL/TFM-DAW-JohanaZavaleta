@@ -41,7 +41,7 @@ export default async function SoportePage() {
             <Link
               key={ticket.id}
               href={`/soporte/${ticket.id}`}
-              className="block bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 hover:shadow-sm transition-all"
+              className="block bg-white border border-gray-200 rounded-xl p-4 hover:border-primary hover:shadow-sm transition-all"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">

@@ -49,7 +49,7 @@ export const RelatedProductsCarousel = ({ products }: Props) => {
                 />
               </div>
               <div className="mt-2 px-1">
-                <p className="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-blue-700 transition-colors">
+                <p className="text-sm font-medium text-gray-800 line-clamp-2 group-hover:text-primary transition-colors">
                   {product.title}
                 </p>
                 <p className="text-sm font-bold mt-0.5">€{product.price.toFixed(2)}</p>

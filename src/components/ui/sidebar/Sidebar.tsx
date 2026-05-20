@@ -57,7 +57,7 @@ export const Sidebar = () => {
           <input
             type="text"
             placeholder='Buscar muebles...'
-            className='w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500'
+            className='w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-primary'
             onKeyDown={e => {
               if (e.key === 'Enter') {
                 const q = (e.target as HTMLInputElement).value;

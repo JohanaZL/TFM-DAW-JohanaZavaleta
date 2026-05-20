@@ -142,7 +142,7 @@ export const CategoryManager = ({ initialCategories }: Props) => {
                 <td className="py-3 pr-4">{cat._count.products}</td>
                 <td className="py-3">
                   <div className="flex gap-2">
-                    <button onClick={() => startEdit(cat)} className="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50">
+                    <button onClick={() => startEdit(cat)} className="text-primary hover:text-primary-dark p-1 rounded hover:bg-primary-light">
                       <IoCreateOutline size={16} />
                     </button>
                     <button onClick={() => handleDelete(cat.id, cat.name)} className="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50">

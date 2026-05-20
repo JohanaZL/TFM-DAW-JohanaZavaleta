@@ -1,9 +1,9 @@
 'use client';
 
-import { titleFont } from '@/config/fonts';
-import { IoSearchOutline, IoCartOutline } from 'react-icons/io5';
+import { IoCartOutline } from 'react-icons/io5';
 import { NotificationBell } from '@/components/soporte/NotificationBell';
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useUIStore, useCartStore, useAuthStore } from '@/store';
 import { usePathname } from 'next/navigation';
@@ -36,8 +36,14 @@ export const TopMenu = () => {
         {/* LOGO */}
         <div>
           <Link href="/">
-            <span className={`${titleFont.className} font-bold`}>Teslo</span>
-            <span> | Muebles</span>
+            <Image
+              src="/imgs/Logo_de_Muebles_con_Alma.png"
+              alt="Muebles con Alma"
+              width={140}
+              height={48}
+              priority
+              className="h-10 w-auto object-contain"
+            />
           </Link>
         </div>
 
@@ -50,7 +56,7 @@ export const TopMenu = () => {
               className={clsx(
                 'm-2 p-2 rounded-md text-sm font-medium transition-colors',
                 pathname.startsWith(href)
-                  ? 'bg-blue-50 text-blue-700'
+                  ? 'bg-primary-light text-primary'
                   : 'hover:bg-gray-100 text-gray-700'
               )}
             >
@@ -67,7 +73,7 @@ export const TopMenu = () => {
           <Link href="/cart" className="mx-2" aria-label="Carrito de compra">
             <div className="relative">
               {cartCount > 0 && (
-                <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-blue-700 text-white">
+                <span className="absolute text-xs rounded-full px-1 font-bold -top-2 -right-2 bg-primary text-white">
                   {cartCount}
                 </span>
               )}

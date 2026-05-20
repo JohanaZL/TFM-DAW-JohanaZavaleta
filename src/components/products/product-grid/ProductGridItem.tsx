@@ -37,7 +37,7 @@ export const ProductGridItem = ({ product }: Props) => {
       </Link>
 
       <div className="p-4 flex flex-col">
-        <Link className="hover:text-blue-600" href={`/product/${product.slug}`}>
+        <Link className="hover:text-primary" href={`/product/${product.slug}`}>
           {product.title}
         </Link>
         {product.material && (

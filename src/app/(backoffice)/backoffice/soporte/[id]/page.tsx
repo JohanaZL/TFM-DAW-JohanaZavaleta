@@ -122,7 +122,7 @@ export default async function BackofficeSoporteDetailPage({ params }: Props) {
               </div>
               <Link
                 href="/backoffice/orders"
-                className="text-sm text-blue-600 hover:text-blue-800 font-medium shrink-0"
+                className="text-sm text-primary hover:text-primary-dark font-medium shrink-0"
               >
                 Ver pedido →
               </Link>
@@ -137,8 +137,8 @@ export default async function BackofficeSoporteDetailPage({ params }: Props) {
 
       {/* Producto específico */}
       {ticket.product && (
-        <div className="bg-white border border-blue-100 rounded-xl p-4 mb-4">
-          <div className="flex items-center gap-2 mb-3 text-blue-600">
+        <div className="bg-white border border-primary-muted rounded-xl p-4 mb-4">
+          <div className="flex items-center gap-2 mb-3 text-primary">
             <IoCubeOutline size={16} />
             <span className="text-xs font-semibold uppercase tracking-wide">Producto consultado</span>
           </div>
@@ -158,7 +158,7 @@ export default async function BackofficeSoporteDetailPage({ params }: Props) {
             <div className="min-w-0">
               <Link
                 href={`/product/${ticket.product.slug}`}
-                className="font-medium text-gray-800 hover:text-blue-600 transition-colors"
+                className="font-medium text-gray-800 hover:text-primary transition-colors"
                 target="_blank"
               >
                 {ticket.product.title}
@@ -205,7 +205,7 @@ export default async function BackofficeSoporteDetailPage({ params }: Props) {
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/product/${product.slug}`}
-                      className="text-sm font-medium text-gray-800 hover:text-blue-600 transition-colors truncate block"
+                      className="text-sm font-medium text-gray-800 hover:text-primary transition-colors truncate block"
                       target="_blank"
                     >
                       {product.title}

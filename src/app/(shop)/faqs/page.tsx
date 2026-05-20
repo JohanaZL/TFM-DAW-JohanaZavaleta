@@ -152,7 +152,7 @@ function FaqAccordion({ items }: { items: FaqItem[] }) {
         <div key={i}>
           <button
             onClick={() => setOpenIndex(openIndex === i ? null : i)}
-            className="w-full text-left py-4 flex justify-between items-center gap-4 hover:text-blue-700 transition-colors"
+            className="w-full text-left py-4 flex justify-between items-center gap-4 hover:text-primary transition-colors"
           >
             <span className="text-sm font-medium text-gray-800">{item.question}</span>
             <IoChevronDownOutline
@@ -180,7 +180,7 @@ export default function FaqsPage() {
       <div className="mt-10 space-y-10">
         {faqs.map(section => (
           <section key={section.category}>
-            <h2 className="text-base font-semibold text-blue-700 uppercase tracking-wide mb-2">
+            <h2 className="text-base font-semibold text-primary uppercase tracking-wide mb-2">
               {section.category}
             </h2>
             <div className="bg-white rounded-xl border border-gray-200 px-5">

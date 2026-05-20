@@ -33,7 +33,7 @@ export const AdminTicketActions = ({ ticketId, currentStatus }: Props) => {
         <button
           onClick={() => changeStatus('IN_REVIEW')}
           disabled={loading}
-          className="text-sm px-3 py-1.5 rounded-lg bg-blue-100 text-blue-700 hover:bg-blue-200 transition-colors disabled:opacity-50 font-medium"
+          className="text-sm px-3 py-1.5 rounded-lg bg-primary-light text-primary hover:bg-primary-muted transition-colors disabled:opacity-50 font-medium"
         >
           Marcar en revisión
         </button>

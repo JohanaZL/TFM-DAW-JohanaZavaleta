@@ -58,7 +58,7 @@ export const SupportButton = ({
       ? 'btn-primary flex items-center gap-2'
       : variant === 'secondary'
       ? 'btn-secondary flex items-center gap-2'
-      : 'flex items-center gap-1.5 text-sm text-gray-500 hover:text-blue-600 transition-colors';
+      : 'flex items-center gap-1.5 text-sm text-gray-500 hover:text-primary transition-colors';
 
   return (
     <button onClick={handleClick} className={`${baseStyles} ${className}`}>

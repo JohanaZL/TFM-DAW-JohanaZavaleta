@@ -186,7 +186,7 @@ export const ProductForm = ({ categories, initialData }: Props) => {
       <div>
         <label className="block text-sm font-medium mb-2">Imagen del producto</label>
         <div
-          className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-blue-400 transition-colors"
+          className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-primary transition-colors"
           onClick={() => fileRef.current?.click()}
         >
           {imagePreview ? (

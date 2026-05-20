@@ -11,7 +11,7 @@ export default function EmptyPage () {
         <h1 className="text-xl font-semibold">Tu carrito esta vacío</h1>
         <Link 
           href='/'
-          className="text-blue-500 mt-2 text-4xl"  
+          className="text-primary mt-2 text-4xl"  
         > Regresar
         </Link>
       </div>

@@ -36,7 +36,7 @@ export default async function BackofficeOrdersPage() {
               {orders.map(order => (
                 <tr key={order.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4">
-                    <Link href={`/orders/${order.id}`} className="font-mono text-xs text-blue-600 hover:underline">
+                    <Link href={`/orders/${order.id}`} className="font-mono text-xs text-primary hover:underline">
                       {order.ticketNumber}
                     </Link>
                   </td>

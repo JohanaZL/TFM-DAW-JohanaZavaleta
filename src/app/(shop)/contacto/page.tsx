@@ -15,7 +15,7 @@ export default function ContactoPage() {
           <h2 className="text-lg font-semibold text-gray-800">Información de contacto</h2>
 
           <div className="flex items-start gap-4">
-            <IoLocationOutline size={24} className="text-blue-600 mt-0.5 shrink-0" />
+            <IoLocationOutline size={24} className="text-primary mt-0.5 shrink-0" />
             <div>
               <p className="font-medium text-gray-700">Dirección</p>
               <p className="text-gray-500 text-sm">Calle del Mueble 42, 28001 Madrid, España</p>
@@ -23,7 +23,7 @@ export default function ContactoPage() {
           </div>
 
           <div className="flex items-start gap-4">
-            <IoCallOutline size={24} className="text-blue-600 mt-0.5 shrink-0" />
+            <IoCallOutline size={24} className="text-primary mt-0.5 shrink-0" />
             <div>
               <p className="font-medium text-gray-700">Teléfono</p>
               <p className="text-gray-500 text-sm">+34 900 123 456</p>
@@ -31,7 +31,7 @@ export default function ContactoPage() {
           </div>
 
           <div className="flex items-start gap-4">
-            <IoMailOutline size={24} className="text-blue-600 mt-0.5 shrink-0" />
+            <IoMailOutline size={24} className="text-primary mt-0.5 shrink-0" />
             <div>
               <p className="font-medium text-gray-700">Email</p>
               <p className="text-gray-500 text-sm">soporte@teslomuebles.es</p>
@@ -39,7 +39,7 @@ export default function ContactoPage() {
           </div>
 
           <div className="flex items-start gap-4">
-            <IoTimeOutline size={24} className="text-blue-600 mt-0.5 shrink-0" />
+            <IoTimeOutline size={24} className="text-primary mt-0.5 shrink-0" />
             <div>
               <p className="font-medium text-gray-700">Horario de atención</p>
               <p className="text-gray-500 text-sm">Lunes a viernes: 9:00 – 18:00</p>
@@ -57,7 +57,7 @@ export default function ContactoPage() {
               <input
                 type="text"
                 placeholder="Tu nombre"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
             <div>
@@ -65,7 +65,7 @@ export default function ContactoPage() {
               <input
                 type="email"
                 placeholder="tu@email.com"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
             <div>
@@ -73,7 +73,7 @@ export default function ContactoPage() {
               <textarea
                 rows={5}
                 placeholder="¿En qué podemos ayudarte?"
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
               />
             </div>
             <button

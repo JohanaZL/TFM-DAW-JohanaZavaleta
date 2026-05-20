@@ -56,7 +56,7 @@ export const BackofficeSoporteFilters = ({ currentStatus = '', currentSearch }: 
           onChange={e => setSearch(e.target.value)}
           onKeyDown={e => e.key === 'Enter' && navigate(currentStatus ?? '', search)}
           placeholder="Buscar por usuario, asunto o pedido..."
-          className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[220px]"
+          className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary min-w-[220px]"
         />
         <button
           onClick={() => navigate(currentStatus ?? '', search)}

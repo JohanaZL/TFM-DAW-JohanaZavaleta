@@ -16,7 +16,7 @@ export default async function BackofficeDashboard() {
   });
 
   const stats = [
-    { label: 'Productos', value: totalProducts, icon: IoCubeOutline, color: 'bg-blue-500' },
+    { label: 'Productos', value: totalProducts, icon: IoCubeOutline, color: 'bg-primary' },
     { label: 'Categorías', value: totalCategories, icon: IoListOutline, color: 'bg-green-500' },
     { label: 'Pedidos', value: totalOrders, icon: IoReceiptOutline, color: 'bg-yellow-500' },
     { label: 'Ingresos', value: `€${(revenue._sum.total ?? 0).toFixed(2)}`, icon: IoCashOutline, color: 'bg-purple-500' },

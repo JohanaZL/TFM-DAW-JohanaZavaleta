@@ -1,20 +1,21 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #8B6855;
+  --color-primary-medium: #7A5947;
+  --color-primary-dark: #6B4F3A;
+  --color-primary-light: #F5E8DF;
+  --color-primary-muted: #EDD9CA;
+}
+
 :root {
-  --primary: #274494;
+  --primary: #8B6855;
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-start-rgb))
-    )
-    rgb(var(--background-end-rgb));
+  background-color: #ffffff;
 }
 
 @keyframes fadeIn {
@@ -29,7 +30,7 @@ body {
 }
 
 .btn-primary {
-  @apply bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded transition-all;
+  @apply bg-primary hover:bg-primary-dark text-white py-2 px-4 rounded transition-all;
 }
 
 .btn-secondary {

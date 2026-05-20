@@ -111,8 +111,8 @@ export const NuevoTicketForm = ({ orders, initialSubject = '', productContext, f
 
       {/* Contexto: producto */}
       {productContext && (
-        <div className="flex items-center gap-3 p-3 bg-blue-50 border border-blue-100 rounded-lg">
-          <IoCubeOutline size={20} className="text-blue-500 shrink-0" />
+        <div className="flex items-center gap-3 p-3 bg-primary-light border border-primary-muted rounded-lg">
+          <IoCubeOutline size={20} className="text-primary shrink-0" />
           {productContext.imageId && (
             <div className="relative w-12 h-12 shrink-0 rounded overflow-hidden">
               <Image
@@ -125,7 +125,7 @@ export const NuevoTicketForm = ({ orders, initialSubject = '', productContext, f
             </div>
           )}
           <div className="min-w-0">
-            <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide">Producto relacionado</p>
+            <p className="text-xs font-semibold text-primary uppercase tracking-wide">Producto relacionado</p>
             <p className="text-sm font-medium text-gray-800 truncate">{productContext.title}</p>
             <p className="text-xs text-gray-500">€{productContext.price.toFixed(2)}</p>
           </div>
@@ -177,7 +177,7 @@ export const NuevoTicketForm = ({ orders, initialSubject = '', productContext, f
           value={form.subject}
           onChange={handleChange}
           placeholder="Ej: Consulta sobre un producto, problema con mi pedido..."
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
           maxLength={200}
         />
       </div>
@@ -191,7 +191,7 @@ export const NuevoTicketForm = ({ orders, initialSubject = '', productContext, f
           name="orderId"
           value={form.orderId}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary bg-white"
         >
           <option value="">Sin pedido relacionado</option>
           {orders.map(order => (
@@ -214,7 +214,7 @@ export const NuevoTicketForm = ({ orders, initialSubject = '', productContext, f
           value={form.phone}
           onChange={handleChange}
           placeholder="+34 600 000 000"
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
         />
       </div>
 
@@ -229,7 +229,7 @@ export const NuevoTicketForm = ({ orders, initialSubject = '', productContext, f
           onChange={handleChange}
           rows={5}
           placeholder="Describe tu consulta o problema con el mayor detalle posible..."
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary resize-none"
         />
       </div>
 

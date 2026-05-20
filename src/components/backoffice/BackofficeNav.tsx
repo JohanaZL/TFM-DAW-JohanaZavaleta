@@ -33,7 +33,7 @@ export const BackofficeNav = () => {
     <>
       <div className="p-6 border-b border-gray-700 flex items-center justify-between">
         <div>
-          <p className="font-bold text-lg">Teslo Backoffice</p>
+          <p className="font-bold text-lg">Muebles con Alma</p>
           <p className="text-xs text-gray-400">Panel de administración</p>
         </div>
         {/* Botón cerrar — solo en mobile overlay */}
@@ -57,7 +57,7 @@ export const BackofficeNav = () => {
               className={clsx(
                 'flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors',
                 isActive
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary text-white'
                   : 'text-gray-300 hover:bg-gray-800 hover:text-white'
               )}
             >
