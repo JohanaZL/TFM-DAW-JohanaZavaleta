@@ -14,6 +14,7 @@ import {
   IoTicketOutline,
   IoHomeOutline,
   IoSettingsOutline,
+  IoGridOutline,
 } from 'react-icons/io5';
 
 export const Sidebar = () => {
@@ -42,7 +43,7 @@ export const Sidebar = () => {
       )}
 
       <nav className={clsx(
-        'fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300',
+        'fixed p-5 right-0 top-0 w-[85vw] sm:w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300 overflow-y-auto',
         { 'translate-x-full': !isSideMenuOpen }
       )}>
         <IoCloseOutline
@@ -66,6 +67,28 @@ export const Sidebar = () => {
             }}
           />
         </div>
+
+        {/* Categorías — siempre visibles */}
+        <div className='mt-8 mb-2 text-xs uppercase text-gray-400 font-semibold px-2'>
+          Categorías
+        </div>
+        <Link onClick={closeMenu} href='/category/sofas' className='flex items-center mt-2 p-2 hover:bg-gray-100 rounded transition-all'>
+          <IoGridOutline size={24} />
+          <span className='ml-3 text-lg'>Sofás</span>
+        </Link>
+        <Link onClick={closeMenu} href='/category/sillas' className='flex items-center mt-2 p-2 hover:bg-gray-100 rounded transition-all'>
+          <IoGridOutline size={24} />
+          <span className='ml-3 text-lg'>Sillas</span>
+        </Link>
+        <Link onClick={closeMenu} href='/category/mesas' className='flex items-center mt-2 p-2 hover:bg-gray-100 rounded transition-all'>
+          <IoGridOutline size={24} />
+          <span className='ml-3 text-lg'>Mesas</span>
+        </Link>
+        <Link onClick={closeMenu} href='/category/camas' className='flex items-center mt-2 p-2 hover:bg-gray-100 rounded transition-all'>
+          <IoGridOutline size={24} />
+          <span className='ml-3 text-lg'>Camas</span>
+        </Link>
+        <div className='w-full h-px bg-gray-200 my-5' />
 
         {user ? (
           user.role === 'admin' ? (

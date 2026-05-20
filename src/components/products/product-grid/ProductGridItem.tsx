@@ -23,7 +23,7 @@ export const ProductGridItem = ({ product }: Props) => {
   return (
     <div className="rounded-md overflow-hidden fade-in">
       <Link href={`/product/${product.slug}`}>
-        <div className="relative w-full h-[500px] overflow-hidden rounded">
+        <div className="relative w-full h-[220px] sm:h-[380px] lg:h-[500px] overflow-hidden rounded">
           <Image
             src={showSecond && hasSecondImage ? getImageSrc(product, 1) : getImageSrc(product, 0)}
             alt={product.title}
