@@ -14,6 +14,7 @@ import {
   IoTicketOutline,
   IoHomeOutline,
   IoSettingsOutline,
+  IoGridOutline,
 } from 'react-icons/io5';
 
 export const Sidebar = () => {
@@ -42,7 +43,7 @@ export const Sidebar = () => {
       )}
 
       <nav className={clsx(
-        'fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300',
+        'fixed p-5 right-0 top-0 w-[85vw] sm:w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300 overflow-y-auto',
         { 'translate-x-full': !isSideMenuOpen }
       )}>
         <IoCloseOutline
@@ -56,7 +57,7 @@ export const Sidebar = () => {
           <input
             type="text"
             placeholder='Buscar muebles...'
-            className='w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500'
+            className='w-full bg-gray-50 rounded pl-10 py-1 pr-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-primary'
             onKeyDown={e => {
               if (e.key === 'Enter') {
                 const q = (e.target as HTMLInputElement).value;
@@ -66,6 +67,21 @@ export const Sidebar = () => {
             }}
           />
         </div>
+
+        {/* Categorías — siempre visibles */}
+        <div className='mt-4 block md:hidden'>
+            <Link onClick={closeMenu} href='/products' className='flex items-center mt-2 p-2 hover:bg-gray-100 rounded transition-all'>
+          <span className='ml-3 text-lg'>Productos</span>
+        </Link>
+        <Link onClick={closeMenu} href='/contacto' className='flex items-center mt-2 p-2 hover:bg-gray-100 rounded transition-all'>
+          <span className='ml-3 text-lg'>Contacto</span>
+        </Link>
+        <Link onClick={closeMenu} href='/faqs' className='flex items-center mt-2 p-2 hover:bg-gray-100 rounded transition-all'>
+          <span className='ml-3 text-lg'>FAQs</span>
+        </Link>
+        </div>
+        
+        <div className='w-full h-px bg-gray-200 my-5' />
 
         {user ? (
           user.role === 'admin' ? (
@@ -93,27 +109,23 @@ export const Sidebar = () => {
             </>
           ) : (
             <>
-              <Link onClick={closeMenu} href='/orders' className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'>
+              <div className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'>
                 <IoPersonOutline size={30} />
                 <span className='ml-3 text-xl'>{user.name}</span>
-              </Link>
+              </div>
               <Link onClick={closeMenu} href='/orders' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
                 <IoTicketOutline size={30} />
                 <span className='ml-3 text-xl'>Mis Pedidos</span>
+              </Link>
+              <Link onClick={closeMenu} href='/soporte' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
+                <IoTicketOutline size={30} />
+                <span className='ml-3 text-xl'>Soporte</span>
               </Link>
               <button onClick={handleLogout} className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all w-full'>
                 <IoLogOutOutline size={30} />
                 <span className='ml-3 text-xl'>Cerrar Sesión</span>
               </button>
               <div className='w-full h-px bg-gray-200 my-10' />
-              <Link onClick={closeMenu} href='/' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-                <IoHomeOutline size={30} />
-                <span className='ml-3 text-xl'>Inicio</span>
-              </Link>
-              <Link onClick={closeMenu} href='/products' className='flex items-center mt-4 p-2 hover:bg-gray-100 rounded transition-all'>
-                <IoSearchOutline size={30} />
-                <span className='ml-3 text-xl'>Todos los productos</span>
-              </Link>
             </>
           )
         ) : (

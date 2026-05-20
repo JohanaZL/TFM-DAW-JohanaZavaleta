@@ -5,6 +5,7 @@ import { useCartStore } from '@/store';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IoAddOutline, IoRemoveOutline, IoTrashOutline } from 'react-icons/io5';
+import { SupportButton } from '@/components/soporte/SupportButton';
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, totalItems, totalPrice } = useCartStore();
@@ -107,10 +108,18 @@ export default function CartPage() {
               <span className="mt-4 text-2xl font-bold text-right">€{total.toFixed(2)}</span>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 space-y-3">
               <Link className="flex btn-primary justify-center" href="/checkout">
                 Tramitar pedido
               </Link>
+              <div className="flex justify-center">
+                <SupportButton
+                  fromCart
+                  label="¿Tienes dudas sobre tu carrito? Contactar soporte"
+                  variant="ghost"
+                  className="text-xs"
+                />
+              </div>
             </div>
           </div>
         </div>

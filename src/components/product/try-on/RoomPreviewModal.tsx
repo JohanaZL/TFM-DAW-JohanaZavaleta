@@ -132,7 +132,7 @@ export const RoomPreviewModal = ({ isOpen, onClose, productImageId, productTitle
 
         {loading && (
           <div className="flex flex-col items-center gap-3 py-4">
-            <div className="animate-spin rounded-full h-10 w-10 border-4 border-blue-600 border-t-transparent" />
+            <div className="animate-spin rounded-full h-10 w-10 border-4 border-primary border-t-transparent" />
             <p className="text-sm text-gray-500">Generando visualización con IA...</p>
           </div>
         )}

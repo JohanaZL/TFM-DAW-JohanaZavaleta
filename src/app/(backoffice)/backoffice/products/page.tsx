@@ -61,7 +61,7 @@ export default async function BackofficeProductsPage() {
                     <div className="flex items-center gap-2">
                       <Link
                         href={`/backoffice/products/${product.id}/edit`}
-                        className="text-blue-600 hover:text-blue-800 p-1 rounded hover:bg-blue-50"
+                        className="text-primary hover:text-primary-dark p-1 rounded hover:bg-primary-light"
                         title="Editar"
                       >
                         <IoCreateOutline size={18} />

@@ -8,12 +8,15 @@ export async function GET(req: NextRequest) {
   const categorySlug = searchParams.get('category');
   const page = Math.max(1, parseInt(searchParams.get('page') ?? '1'));
   const q = searchParams.get('q') ?? '';
-  const take = 12;
+  const exclude = searchParams.get('exclude') ?? '';
+  const limitParam = searchParams.get('limit');
+  const take = limitParam ? Math.min(parseInt(limitParam), 50) : 12;
   const skip = (page - 1) * take;
 
   const where = {
     ...(categorySlug ? { category: { slug: categorySlug } } : {}),
     ...(q ? { title: { contains: q, mode: 'insensitive' as const } } : {}),
+    ...(exclude ? { slug: { not: exclude } } : {}),
   };
 
   const [products, total] = await Promise.all([

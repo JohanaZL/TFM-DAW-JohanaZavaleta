@@ -1,8 +1,9 @@
 import { Title } from '@/components/ui/title/Title';
 import { ProductGrid } from '@/components';
-import { Product } from '@/interfaces';
+import { Product, Category } from '@/interfaces';
 import Link from 'next/link';
 import { getBaseUrl } from '@/lib/getBaseUrl';
+import clsx from 'clsx';
 
 interface Props {
   searchParams: Promise<{ q?: string; category?: string; page?: string }>;
@@ -26,9 +27,22 @@ async function getProducts(q: string, category: string, page: string) {
   }
 }
 
+async function getCategories(): Promise<Category[]> {
+  try {
+    const res = await fetch(`${getBaseUrl()}/api/categories`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
 export default async function ProductsPage({ searchParams }: Props) {
   const { q = '', category = '', page = '1' } = await searchParams;
-  const { products, total, pages } = await getProducts(q, category, page);
+  const [{ products, total, pages }, categories] = await Promise.all([
+    getProducts(q, category, page),
+    getCategories(),
+  ]);
   const currentPage = parseInt(page);
 
   return (
@@ -38,6 +52,37 @@ export default async function ProductsPage({ searchParams }: Props) {
         subTitle={`${total} producto${total !== 1 ? 's' : ''} encontrado${total !== 1 ? 's' : ''}`}
         className="mb-4"
       />
+
+      {/* Filtro de categorías */}
+      {categories.length > 0 && (
+        <div className="flex flex-wrap gap-2 px-1 mb-6">
+          <Link
+            href={`/products?${new URLSearchParams({ q, page: '1' })}`}
+            className={clsx(
+              'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors',
+              !category
+                ? 'bg-gray-900 text-white border-gray-900'
+                : 'border-gray-300 text-gray-600 hover:bg-gray-100'
+            )}
+          >
+            Todos
+          </Link>
+          {categories.map(cat => (
+            <Link
+              key={cat.id}
+              href={`/products?${new URLSearchParams({ q, category: cat.slug, page: '1' })}`}
+              className={clsx(
+                'px-4 py-1.5 rounded-full text-sm font-medium border transition-colors',
+                category === cat.slug
+                  ? 'bg-gray-900 text-white border-gray-900'
+                  : 'border-gray-300 text-gray-600 hover:bg-gray-100'
+              )}
+            >
+              {cat.name}
+            </Link>
+          ))}
+        </div>
+      )}
 
       {products.length === 0 ? (
         <div className="text-center py-20 text-gray-500">

@@ -23,16 +23,28 @@ enum OrderStatus {
   cancelled
 }
 
+enum TicketStatus {
+  PENDING
+  IN_REVIEW
+  RESOLVED
+}
+
+enum SenderType {
+  CUSTOMER
+  ADMIN
+}
+
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(user)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cart      Cart?
-  orders    Order[]
+  id              String          @id @default(uuid())
+  name            String
+  email           String          @unique
+  password        String
+  role            Role            @default(user)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  cart            Cart?
+  orders          Order[]
+  supportTickets  SupportTicket[]
 }
 
 model Category {
@@ -44,24 +56,25 @@ model Category {
 }
 
 model Product {
-  id          String         @id @default(uuid())
-  title       String
-  description String
-  inStock     Int
-  price       Float          @default(0)
-  slug        String         @unique
-  tags        String[]       @default([])
-  material    String?
-  dimensions  String?
-  weight      Float?
-  color       String?
-  category    Category       @relation(fields: [categoryId], references: [id])
-  categoryId  String
-  images      ProductImage[]
-  cartItems   CartItem[]
-  orderItems  OrderItem[]
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
+  id             String          @id @default(uuid())
+  title          String
+  description    String
+  inStock        Int
+  price          Float           @default(0)
+  slug           String          @unique
+  tags           String[]        @default([])
+  material       String?
+  dimensions     String?
+  weight         Float?
+  color          String?
+  category       Category        @relation(fields: [categoryId], references: [id])
+  categoryId     String
+  images         ProductImage[]
+  cartItems      CartItem[]
+  orderItems     OrderItem[]
+  supportTickets SupportTicket[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
 }
 
 model ProductImage {
@@ -95,16 +108,17 @@ model CartItem {
 }
 
 model Order {
-  id           String      @id @default(uuid())
-  user         User        @relation(fields: [userId], references: [id])
-  userId       String
-  status       OrderStatus @default(pending)
-  items        OrderItem[]
-  total        Float
-  address      String?
-  ticketNumber String      @unique @default(cuid())
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  id              String          @id @default(uuid())
+  user            User            @relation(fields: [userId], references: [id])
+  userId          String
+  status          OrderStatus     @default(pending)
+  items           OrderItem[]
+  total           Float
+  address         String?
+  ticketNumber    String          @unique @default(cuid())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  supportTickets  SupportTicket[]
 }
 
 model OrderItem {
@@ -115,4 +129,37 @@ model OrderItem {
   productId  String
   quantity   Int
   priceAtBuy Float
+}
+
+model SiteConfig {
+  id            String   @id @default("main")
+  homeParagraph String   @default("")
+  updatedAt     DateTime @updatedAt
+}
+
+model SupportTicket {
+  id             String          @id @default(uuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id])
+  orderId        String?
+  order          Order?          @relation(fields: [orderId], references: [id])
+  productId      String?
+  product        Product?        @relation(fields: [productId], references: [id])
+  cartProductIds String[]        @default([])
+  subject        String
+  phone          String?
+  status         TicketStatus    @default(PENDING)
+  messages       TicketMessage[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model TicketMessage {
+  id          String        @id @default(uuid())
+  ticketId    String
+  ticket      SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+  senderType  SenderType
+  messageText String
+  isRead      Boolean       @default(false)
+  createdAt   DateTime      @default(now())
 }
