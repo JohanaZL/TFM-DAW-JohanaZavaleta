@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   }
 
   const genAI = new GoogleGenerativeAI(apiKey);
-  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-preview-04-17' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
 
   const prompt =
     'You are an interior design assistant. Given a photo of a room and a furniture product image, ' +
